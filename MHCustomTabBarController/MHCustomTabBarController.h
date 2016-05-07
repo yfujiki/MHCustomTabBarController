@@ -27,6 +27,9 @@ extern NSString *const MHCustomTabBarControllerViewControllerAlreadyVisibleNotif
 
 @interface MHCustomTabBarController : UIViewController
 
+// You need to specify this first segue name.
+@property (strong, nonatomic) NSString *firstSegueName;
+
 @property (weak,nonatomic) UIViewController *destinationViewController;
 @property (strong, nonatomic) UIViewController *oldViewController;
 @property (weak, nonatomic) IBOutlet UIView *container;
