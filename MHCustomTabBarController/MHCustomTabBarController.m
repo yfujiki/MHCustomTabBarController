@@ -79,7 +79,11 @@ NSString *const MHCustomTabBarControllerViewControllerAlreadyVisibleNotification
 
     self.destinationIdentifier = segue.identifier;
     self.destinationViewController = [self.viewControllersByIdentifier objectForKey:self.destinationIdentifier];
-    
+}
+
+- (void)performSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    [super performSegueWithIdentifier:identifier sender:sender];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:MHCustomTabBarControllerViewControllerChangedNotification object:self];
 }
 
