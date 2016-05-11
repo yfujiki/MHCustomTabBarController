@@ -24,6 +24,8 @@
 
 extern NSString *const MHCustomTabBarControllerViewControllerChangedNotification;
 extern NSString *const MHCustomTabBarControllerViewControllerAlreadyVisibleNotification;
+extern NSString *const MHCustomTabBarControllerViewControllerChangedFromKey;
+extern NSString *const MHCustomTabBarControllerViewControllerChangedToKey;
 
 @interface MHCustomTabBarController : UIViewController
 

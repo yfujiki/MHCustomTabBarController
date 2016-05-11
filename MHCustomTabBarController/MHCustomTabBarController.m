@@ -26,7 +26,8 @@
 
 NSString *const MHCustomTabBarControllerViewControllerChangedNotification = @"MHCustomTabBarControllerViewControllerChangedNotification";
 NSString *const MHCustomTabBarControllerViewControllerAlreadyVisibleNotification = @"MHCustomTabBarControllerViewControllerAlreadyVisibleNotification";
-
+NSString *const MHCustomTabBarControllerViewControllerChangedFromKey = @"MHCustomTabBarControllerViewControllerChangedFromKey";
+NSString *const MHCustomTabBarControllerViewControllerChangedToKey = @"MHCustomTabBarControllerViewControllerChangedToKey";
 @interface MHCustomTabBarController ()
 
 @property (nonatomic, strong) NSMutableDictionary *viewControllersByIdentifier;
@@ -79,12 +80,17 @@ NSString *const MHCustomTabBarControllerViewControllerAlreadyVisibleNotification
 
     self.destinationIdentifier = segue.identifier;
     self.destinationViewController = [self.viewControllersByIdentifier objectForKey:self.destinationIdentifier];
-}
 
-- (void)performSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    [super performSegueWithIdentifier:identifier sender:sender];
+    NSMutableDictionary *userInfo = [NSMutableDictionary new];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:MHCustomTabBarControllerViewControllerChangedNotification object:self];
+    if (self.oldViewController) {
+        userInfo[MHCustomTabBarControllerViewControllerChangedFromKey] = self.oldViewController;
+    }
+
+    if (self.destinationViewController) {
+        userInfo[MHCustomTabBarControllerViewControllerChangedToKey] = self.destinationViewController;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:MHCustomTabBarControllerViewControllerChangedNotification object:self userInfo:[userInfo copy]];
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
